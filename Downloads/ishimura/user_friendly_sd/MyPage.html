@@ -1,0 +1,25 @@
+{{ block title}} 意思決定 {{ endblock }} {{ block content }}
+<p>どちらかを選んでください．</p>
+<div class="row justify-content-between">
+    <div>
+        <button
+            id="button-A"
+            data-value="C"
+            class="btn btn-success col-4 offset-1"
+        >
+            A
+        </button>
+        <button
+            id="button-B"
+            data-value="D"
+            class="btn btn-warning col-4 offset-2"
+        >
+            B
+        </button>
+    </div>
+</div>
+
+<div style="display: none">{{ formfields }}{{ next_button }}</div>
+<script src="{{ static 'user_friendly_sd/MyPage/btn_flow.js' }}"></script>
+<link rel="stylesheet" href="{{ static 'user_friendly_sd/whole.css' }}" />
+{{endblock}}

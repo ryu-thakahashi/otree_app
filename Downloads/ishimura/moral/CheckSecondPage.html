@@ -1,0 +1,261 @@
+{% extends "global/Page.html" %}
+{% block content %}
+<div class="container">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>回答の変化確認</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        .header h1 {
+            color: #2c3e50;
+            margin: 0;
+            font-size: 24px;
+        }
+        
+        .round-info {
+            background-color: #ecf0f1;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .scenario-box {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-left: 4px solid #3498db;
+            margin-bottom: 25px;
+            border-radius: 5px;
+        }
+        
+        .scenario-box h3 {
+            color: #2c3e50;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+        
+        .comparison-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 25px;
+        }
+        
+        .answer-card {
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+        
+        .answer-card.original {
+            background-color: #fff3cd;
+            border-color: #ffeaa7;
+        }
+        
+        .answer-card.after {
+            background-color: #d1ecf1;
+            border-color: #bee5eb;
+        }
+        
+        .answer-card h4 {
+            margin: 0 0 15px 0;
+            color: #2c3e50;
+        }
+        
+        .answer-value {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        
+        .answer-card.original .answer-value {
+            background-color: #fff;
+            border: 2px solid #f39c12;
+            color: #f39c12;
+        }
+        
+        .answer-card.after .answer-value {
+            background-color: #fff;
+            border: 2px solid #3498db;
+            color: #3498db;
+        }
+        
+        .scale-explanation {
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+            margin-top: 10px;
+        }
+        
+        .change-indicator {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .change-indicator.no-change {
+            color: #95a5a6;
+        }
+        
+        .change-indicator.increase {
+            color: #27ae60;
+        }
+        
+        .change-indicator.decrease {
+            color: #e74c3c;
+        }
+        
+        .evaluation-given {
+            background-color: #e8f5e8;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border-left: 4px solid #27ae60;
+        }
+        
+        .next-button {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            background-color: #3498db;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+        }
+        
+        @media (max-width: 768px) {
+            .comparison-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>回答の変化確認</h1>
+        </div>
+        
+        <div class="round-info">
+            <strong>ラウンド {{ round_number }} - 評価者の確認</strong>
+        </div>
+        
+        <div class="scenario-box">
+            <h3>質問シナリオ</h3>
+            <p>{{ question_scenario }}</p>
+            <p><strong>質問：</strong>{{ question_text }}</p>
+        </div>
+        
+        <div class="evaluation-given">
+            <strong>あなたが与えた評価：</strong> {{ player.moral_eval }}/7
+            <div class="scale-explanation">
+                (1 = 全くそう思わない〜7 = 非常にそう思う)
+            </div>
+        </div>
+        
+        <div class="comparison-container">
+            <!-- 初回回答 -->
+            <div class="answer-card original">
+                <h4>📝 初回回答</h4>
+                <div class="answer-value">
+                    {% if answer_original %}
+                        {{ answer_original }}
+                    {% else %}
+                        未回答
+                    {% endif %}
+                </div>
+                <div class="scale-explanation">
+                    {% if round_number <= 2 %}
+                        (1 = 絶対に譲らない〜7 = 必ず譲る)
+                    {% else %}
+                        (1 = 完全に脚色〜7 = 正直に事実のみ)
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- フィードバック後回答 -->
+            <div class="answer-card after">
+                <h4>🔄 フィードバック後回答</h4>
+                <div class="answer-value">
+                    {% if answer_after %}
+                        {{ answer_after }}
+                    {% else %}
+                        未回答
+                    {% endif %}
+                </div>
+                <div class="scale-explanation">
+                    {% if round_number <= 2 %}
+                        (1 = 絶対に譲らない〜7 = 必ず譲る)
+                    {% else %}
+                        (1 = 完全に脚色〜7 = 正直に事実のみ)
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <!-- 変化の表示 -->
+        {% if answer_original and answer_after %}
+            <div class="change-indicator 
+                {% if answer_after > answer_original %}increase
+                {% elif answer_after < answer_original %}decrease
+                {% else %}no-change{% endif %}">
+                
+            {% if difference > 0 %}
+            回答が +{{ difference }} ポイント変化
+            {% elif difference < 0 %}
+            回答が {{ difference }} ポイント変化
+                {% else %}
+                    ➡️ 回答に変化なし
+                {% endif %}
+            </div>
+        {% endif %}
+        
+        <div class="next-button">
+            <button class="btn" onclick="document.getElementById('form').submit();">
+                次に進む
+            </button>
+        </div>
+    </div>
+    
+
+</body>
+</div>
+{% endblock %}

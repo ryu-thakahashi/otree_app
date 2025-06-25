@@ -1,0 +1,36 @@
+{% extends "global/Page.html" %}
+
+{% block title %}
+評価ページ（ラウンド {{ round_number }}）
+{% endblock %}
+
+{% block content %}
+<h2>シナリオと質問をよく読み、回答者の回答を評価してください</h2>
+
+<div style="border: 1px solid #ccc; padding: 20px; margin: 20px 0; background-color: #f9f9f9;">
+    <h3>回答者が回答した内容</h3>
+    
+    {% if question_scenario %}
+        <div style="background-color: #f5f5f5; padding: 15px; margin: 15px 0; border-left: 4px solid #007bff;">
+            <p><strong>シナリオ：</strong></p>
+            <p>{{ question_scenario }}</p>
+        </div>
+    {% endif %}
+
+    <div style="margin: 15px 0;">
+        <p><strong>Q：{{ question_text }}</strong></p>
+        <p><em>{{ scale_text }}</em></p>
+    </div>
+
+    <div style="background-color: #e8f4fd; padding: 10px; margin: 15px 0; border-left: 4px solid #28a745;">
+        <p><strong>回答者の回答：{% if answer_0 %} {{ answer_0 }} {% elif answer_1 %} {{ answer_1 }} {% else %} 未回答 {% endif %}</strong></p>
+    </div>
+</div>
+
+<div style="margin: 30px 0;">
+    <h3>あなたの評価</h3>
+    {{ formfield 'moral_eval' }}
+</div>
+
+{{ next_button }}
+{% endblock %}

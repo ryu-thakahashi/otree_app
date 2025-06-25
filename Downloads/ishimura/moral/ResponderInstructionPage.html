@@ -1,0 +1,33 @@
+{% extends "global/Page.html" %}
+
+{% block content %}
+<div style="max-width: 800px; margin: 0 auto; padding: 20px;">
+    <h1 style="text-align: center; color: #007bff;">実験説明</h1>
+    
+    <div style="background-color: #e3f2fd; padding: 20px; border-radius: 8px; margin: 20px 0;">
+        <h2 style="color: #1565c0;">あなたの役割：{{ player_role }}</h2>
+    </div>
+    
+    <div style="background-color: #f8f9fa; padding: 20px; border-left: 4px solid #007bff; margin: 20px 0;">
+        <h3>実験の概要</h3>
+        <p>この実験では、道徳的な判断に関する質問にお答えいただきます。</p>
+        <p>実験は<strong>4ラウンド</strong>で構成されており、2つの異なるシナリオについて回答していただきます。</p>
+    </div>
+    
+    <div style="background-color: #fff3cd; padding: 20px; border-left: 4px solid #ffc107; margin: 20px 0;">
+        <h3>あなたの役割について</h3>
+        <ul style="line-height: 1.8;">
+            <li>各ラウンドで提示されるシナリオを読み、質問に対して<strong>1～7の数値</strong>で回答してください</li>
+            <li>1 = 全くそう思わない　〜　7 = 非常にそう思う</li>
+            <li>あなたの回答は、ペアを組んだ評価者によって評価される場合があります</li>
+            <li>正解・不正解はありません。率直な気持ちでお答えください</li>
+        </ul>
+    </div>
+    
+    <div style="text-align: center; margin: 30px 0;">
+        <p style="font-size: 18px; font-weight: bold;">準備ができたら、下のボタンを押して実験を開始してください。</p>
+    </div>
+</div>
+
+{{ next_button }}
+{% endblock %}

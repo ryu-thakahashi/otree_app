@@ -1,0 +1,45 @@
+{% extends "global/Page.html" %}
+
+{% block content %}
+<div style="max-width: 800px; margin: 0 auto; padding: 20px;">
+    <h1 style="text-align: center; color: #28a745;">実験説明</h1>
+    
+    <div style="background-color: #d4edda; padding: 20px; border-radius: 8px; margin: 20px 0;">
+        <h2 style="color: #155724;">あなたの役割：{{ player_role }}</h2>
+    </div>
+    
+    <div style="background-color: #f8f9fa; padding: 20px; border-left: 4px solid #28a745; margin: 20px 0;">
+        <h3>実験の概要</h3>
+        <p>この実験では、相手が道徳的な判断に関する質問に回答した内容を評価していただきます。</p>
+        <p>2つの異なるシナリオについての、それぞれ相手の回答が道徳的かどうか評価します。</p>
+    </div>
+    
+    <div style="background-color: #fff3cd; padding: 20px; border-left: 4px solid #ffc107; margin: 20px 0;">
+        <h3>あなたの役割について</h3>
+        <ul style="line-height: 1.8;">
+            <li>回答者が回答したシナリオと回答内容を確認します</li>
+            <li>その回答が<strong>「道徳的だと思うか」</strong>を<strong>1～7の数値</strong>で評価してください</li>
+            <li>1 = 全くそう思わない　〜　7 = 非常にそう思う</li>
+            <li>正解・不正解はありません。あなたの率直な判断でお答えください</li>
+        </ul>
+    </div>
+    
+    <div style="background-color: #d1ecf1; padding: 20px; border-left: 4px solid #17a2b8; margin: 20px 0;">
+        <h3>実験の流れ</h3>
+        <ol style="line-height: 1.8;">
+            <li><strong>ラウンド1</strong>：回答者が回答（あなたは待機）</li>
+            <li><strong>ラウンド2</strong>：1つ目のシナリオの回答を評価</li>
+            <li><strong>ラウンド3</strong>：回答者が回答（あなたは待機）</li>
+            <li><strong>ラウンド4</strong>：2つ目のシナリオの回答を評価</li>
+        </ol>
+    </div>
+    
+
+    
+    <div style="text-align: center; margin: 30px 0;">
+        <p style="font-size: 18px; font-weight: bold;">準備ができたら、下のボタンを押して実験を開始してください。</p>
+    </div>
+</div>
+
+{{ next_button }}
+{% endblock %}

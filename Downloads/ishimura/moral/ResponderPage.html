@@ -1,0 +1,32 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{% block title %}
+回答ページ
+{% endblock %}
+
+{% block content %}
+<h2>質問に答えてください（ラウンド {{ round_number }})</h2>
+<h3>評価者の存在: <strong>{{ eval_condition }}</strong></h3>
+
+{% if current_scenario %}
+    <div style="background-color: #f5f5f5; padding: 15px; margin: 20px 0; border-left: 4px solid #007bff;">
+        <p><strong>シナリオ：</strong></p>
+        <p>{{ current_scenario }}</p>
+    </div>
+{% endif %}
+
+<div style="margin: 20px 0;">
+    <p><strong>Q：{{ current_question }}</strong></p>
+    <p><em>{{ scale_text }}</em></p>
+</div>
+
+{% if question_index == 0 %}
+    {{ formfield 'answer_0' }}
+{% else %}
+    {{ formfield 'answer_1' }}
+{% endif %}
+
+{% next_button %}
+
+{% endblock %}
