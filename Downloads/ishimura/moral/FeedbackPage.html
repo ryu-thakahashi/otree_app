@@ -1,0 +1,15 @@
+{% extends "global/Page.html" %}
+
+{% block title %}
+評価フィードバック
+{% endblock %}
+
+{% block content %}
+<h2>評価結果（ラウンド {{ round_number }} )</h2>
+<p>評価者からの道徳的評価は <strong>{{ feedback_eval }}</strong> でした。</p>
+<p>（1=全く思わない、7=非常に思う）</p>
+
+{{ next_button }}
+{% endblock %}
+
+

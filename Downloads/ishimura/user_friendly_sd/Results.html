@@ -1,0 +1,24 @@
+{{ block title }} Results {{ endblock }} {{ block content }}
+<p>
+    あなたの選択は
+    <span class="badge bg-{{ player.decision_color}}"
+        >{{ player.decision_str }}</span
+    >
+    です．
+</p>
+<p>他の人の選択：</p>
+<ul>
+    {% for p in group_players %}
+    <li>
+        Player {{p.id_in_group}}:
+        <span class="badge bg-{{ p.decision_color}}">{{ p.decision_str }}</span>
+    </li>
+    {% endfor %}
+</ul>
+<p><span class="badge bg-success">A</span> の数： {{ num_cooperators }}</p>
+<p>
+    <span class="badge bg-warning text-dark">B</span> の数： {{ num_defectors }}
+</p>
+<p>あなたの利得：{{ player.payoff }}</p>
+
+{{ next_button }} {{ endblock }}
